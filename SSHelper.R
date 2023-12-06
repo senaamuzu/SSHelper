@@ -4,7 +4,7 @@ library(rvest)
 
 
 search_terms = readline(prompt = "What is the title of your request?: ")
-category = readline(prompt = "I your request a books, articles, rare_books, video, journals or special_collections?: ")
+category = readline(prompt = "Is your request a books, articles, rare_books, video, journals or special_collections?: ")
 
 
 library_search <- function(search_terms, category...){

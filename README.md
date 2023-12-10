@@ -2,8 +2,10 @@
   SSHelper assists library catalog searches to identify if a source is present within the library collection at Smith College:
   * `library search` searches for a source in the Smith College library.
 
-## Why the project is useful
-  SSHelper is more straight forward way of identifying if a source is present in the library catalog. Ideally we hope to 
+## Why the project is useful?
+  SSHelper is more straight forward way of identifying if a source is present in the library catalog. 
+  Ideally we wanted this package to also scrap PDFs of researcher bibliographies and search the catalog 
+  from the work cited page directly.
   
 ## Installation
 ```{r, eval = FALSE}
@@ -11,9 +13,9 @@
 install.packages("SSHelper")
 ```
 
-## Where users can get help with your project
+## Where users can get help with your project?
 To get a bug fix or to use a feature from the development version, you can email 
 the students who created the project: fndanu@smith.edu, samuzu@smith.edu, and sghebreghiorgis@smith.edu.
 
-## Who maintains and contributes to the project
+## Who maintains and contributes to the project?
 This package was created for Prof. Will Hopper's SDS 270: Advance Programming course in Fall 2023.

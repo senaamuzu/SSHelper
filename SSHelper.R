@@ -1,7 +1,21 @@
 library(httr)
 library(rvest)
 library(purrr)
+library(gridExtra)
+library(grid)
 
+
+place_to_search <- "journals"
+
+library_search <- function(search_terms, place_to_search, ...){
+
+place_to_search <- as.character(place_to_search)
+
+ category_list <- list("books", "articles", "rare_books", "video", "journals", "special_collections")
+
+  if(!(place_to_search )%in% category_list){
+    stop("The provided category is not available")
+  }
 
 
 
@@ -10,6 +24,7 @@ category = readline(prompt = "I your request a books, articles, rare_books, vide
 
 
 library_search <- function(search_terms, category, ...){
+
 
   search_terms  <- as.character(search_terms)
 
@@ -39,31 +54,64 @@ book_title<- function(title,...){
 
 
   x <- jsonlite::read_json(URL)
+  x
 
- # str(x)
-
- docs = map_chr(x$docs, "j_title")
-
- # for (j in length(docs)){
- #   num = unlist(docs[[j]])
+#  if ( category == "journals"){
+#
+#    cover_images <- map_chr(x$docs, "coverimage")
+#
+#    journals = map_chr(x$docs, "j_title")
+#    names(cover_images) <- journals
+#
+#    return(journals)
+#   # cover_images
+#
+#   # cover_image<- cover_images[1]
+#
+#
+#
+# #   image_list <- list()
+# #
+#
+#   p <- list()
+#
+# for (j in cover_images){
+#
+#   img_type <- tools::file_ext (j)
+#
+#   tmp <- httr::GET(url = j)
+#
+#   if(img_type == "png"){
+#     p <- png::readPNG(tmp$content)
+#
+#   }else if (img_type == "jpg" || img_type == "jpeg"){
+#     p <- jpeg::readJPEG(tmp$content)
+#   } else {
+#     stop(" Unknown image format", img_type)
+#   }
+# #
+#   graphics::plot.new()
+#
+#   # gridExtra::grid.raster(p)
+#
+#   gridExtra::grid.arrange(unlist(p),
+#                           ncol = length(cover_images)/2,
+#                           nrow = length(cover_images)/2)
+#
+# }
+ # } else if (category == "")
  #
- #   num[[1]]
  #
- #   if(num[[1]] == "j_title" ){
+ #  {
  #
- #   }
  # }
-
- return(docs)
 
 }
 
+library_search(1984, journals)
+# search_terms = readline(prompt = "What is the title of your request?: ")
+# category = readline(prompt = "I your request a books, articles, rare_books, video, journals or special_collections?: ")
 
-search_terms = readline(prompt = "What is the title of your request?: ")
-category = readline(prompt = "I your request a books, articles, rare_books, video, journals or special_collections?: ")
-
-
-library_search(search_terms, category)
 
 
 #
@@ -111,7 +159,7 @@ library_search(search_terms, category)
 
 
 
-
+# grid graphics subplots--> to show all images
 
 
 

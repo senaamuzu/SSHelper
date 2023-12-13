@@ -5,8 +5,22 @@ library(gridExtra)
 library(grid)
 library(magick)
 
+#' @title Retrieve metadata from Smith College library
+#'
+#' @description
+#' A short description...
+#'
+#'
+#' @return A list of category `SSHelper` with following fields
+#' * journals
+#' * books
+#' * articles
+#' * video
+#' * special_collections
+#'
+#' @importFrom jsonlite read_json
 #' @export
-library_search <- function(search_terms, place_to_search, ...){
+library_search <- function(search_terms, place_to_search, ...) {
 
   place_to_search <- as.character(place_to_search)
 
@@ -38,10 +52,10 @@ library_search <- function(search_terms, place_to_search, ...){
   if ( place_to_search == "journals"){
     cover_images <- map_chr(x$docs, "coverimage")
     journals = map_chr(x$docs, "j_title")
-    names(cover_images) <- journals
+     names(cover_images) <- journals
     journals
 
-    draw_image(cover_images)
+    # draw_image(cover_images)
 
   } else if ( place_to_search == "books"){
 
@@ -58,6 +72,10 @@ library_search <- function(search_terms, place_to_search, ...){
   } else if (place_to_search == "rare_books"){
     rare_books = map_chr(x, "full")
     rare_books
+
+  }else if (category == "articles"){
+    articles = map_chr(x, "title")
+    articles
 
   }else if (place_to_search == "video"){
     video = map_chr(x, "full ")
@@ -78,6 +96,19 @@ library_search <- function(search_terms, place_to_search, ...){
 
 }
 
+#' Visualize
+#'
+#' Given an [`SSHelper`] object, this [`base::draw_image`] method retrieve an image file associated with
+#' the category type from Smith College library and displays it in the graphics device.
+#'
+#' @param x An [`SSHelper`] SSHelper object
+#'
+#' @importFrom tools file_ext
+#' @importFrom png readPNG
+#' @importFrom jpeg readJPEG
+#' @importFrom grid grid.raster
+#'
+#' @export
 draw_image<- function(cover_images,...){
 
   n <- length(cover_images)

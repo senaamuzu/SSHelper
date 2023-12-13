@@ -23,4 +23,3 @@ Imports:
     purrr,
     rvest
 VignetteBuilder: knitr
->>>>>>> 379d45a (Presentation ready commit)

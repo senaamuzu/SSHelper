@@ -30,9 +30,8 @@ a JSON object with metadata about that catalog.
 This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
-library(SSHelper)
-Lists_title <- library_search("1984","journals") 
-Lists_title
+#library(SSHelper)
+#library_search("1984","journals") 
 ```
 
 
@@ -41,6 +40,6 @@ using the draw_image which displays the source cover
 image in your plot window
 
 ```{r}
-plot(lists_title)
+#draw_image(list_title[1])
 ```
 

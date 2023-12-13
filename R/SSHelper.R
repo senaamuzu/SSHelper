@@ -47,8 +47,8 @@ library_search <- function(search_terms, place_to_search, ...) {
 
 
   if ( place_to_search == "journals"){
-    cover_images <- map_chr(x$docs, "coverimage")
-    journals = map_chr(x$docs, "j_title")
+    cover_images <- purrr::map_chr(x$docs, "coverimage")
+    journals = purrr::map_chr(x$docs, "j_title")
     #  names(cover_images) <- journals
     # # journals
     # cover_images
@@ -56,7 +56,7 @@ library_search <- function(search_terms, place_to_search, ...) {
 
   } else if (place_to_search == "books"){
 
-    books = map_chr(x, "jtitle")
+    books = purrr::map_chr(x, "jtitle")
     books
 
     # draw_book_covers()
@@ -64,23 +64,22 @@ library_search <- function(search_terms, place_to_search, ...) {
     # cover_image = map_chr(x$, "")
 
   } else if (place_to_search == "articles"){
-      articles = map_chr(x, "full")
+      articles = purrr::map_chr(x, "full")
 
   } else if (place_to_search == "rare_books"){
-    rare_books = map_chr(x, "full")
+    rare_books = purrr::map_chr(x, "full")
     rare_books
 
   }else if (category == "articles"){
-    articles = map_chr(x, "title")
+    articles = purrr::map_chr(x, "title")
     articles
 
   }else if (place_to_search == "video"){
-    video = map_chr(x, "full ")
+    video = purrr::map_chr(x, "full ")
     video
 
   }else if( place_to_search == "special_collections"){
-    browser()
-    special_collections = map_chr(x, "full")
+    special_collections = purrr::map_chr(x, "full")
     special_collections
 
   } else{

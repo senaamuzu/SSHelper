@@ -105,6 +105,7 @@ library_search <- function(search_terms, place_to_search, ...) {
 #' @importFrom jpeg readJPEG
 #' @importFrom grid grid.raster
 #' @importFrom graphics par
+#' @importFrom purrr map_chr
 #'
 #' @export
 draw_image<- function(cover_images, ...){

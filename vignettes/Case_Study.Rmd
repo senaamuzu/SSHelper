@@ -1,5 +1,5 @@
 ---
-title: "knitr"
+title: "Intro_SSHelper"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{knitr}
@@ -17,3 +17,30 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(SSHelper)
 ```
+
+# SSHelper 
+
+The `SSHelper` package provides a r interface to retrieve catalog information from the Smith College library catalog (https://libtools.smith.edu/bento/results.php?) website and allows users to select specific source and view its cover.
+
+## Browsing Sources
+
+Given a title and source type via a user input the `SSHelper()` 
+web scrapes the catalog and converts the URL into  
+a JSON object with metadata about that catalog.
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(SSHelper)
+Lists_title <- library_search("1984","journals") 
+Lists_title
+```
+
+
+The most useful: thing you can do with these object is plot them, 
+using the draw_image which displays the source cover
+image in your plot window
+
+```{r}
+plot(lists_title)
+```
+

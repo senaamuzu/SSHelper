@@ -43,25 +43,23 @@ library_search <- function(search_terms, place_to_search, ...) {
   )
 
   x <- jsonlite::read_json(URL)
-  str( x)
-
-
+  # str( x)
 
 
   if ( place_to_search == "journals"){
     cover_images <- map_chr(x$docs, "coverimage")
     journals = map_chr(x$docs, "j_title")
-     names(cover_images) <- journals
-    journals
+    #  names(cover_images) <- journals
+    # # journals
+    # cover_images
+    draw_image(cover_images)
 
-    # draw_image(cover_images)
-
-  } else if ( place_to_search == "books"){
+  } else if (place_to_search == "books"){
 
     books = map_chr(x, "jtitle")
     books
 
-    draw_book_covers()
+    # draw_book_covers()
 
     # cover_image = map_chr(x$, "")
 
@@ -109,7 +107,7 @@ library_search <- function(search_terms, place_to_search, ...) {
 #' @importFrom graphics par
 #'
 #' @export
-draw_image<- function(cover_images,...){
+draw_image<- function(cover_images, ...){
 
   n <- length(cover_images)
   n_row <- floor(sqrt(n))
@@ -132,16 +130,15 @@ draw_image<- function(cover_images,...){
     tmp <- httr::GET(url = j)
 
     if (img_type == "png") {
-      p <- png::readJPNG(tmp$content)
+      p <- png::readPNG(tmp$content)
     } else if (img_type == "jpg" || img_type == "jpeg") {
       p <- jpeg::readJPEG(tmp$content)
     } else {
       stop("unknown image format", img_type)
     }
 
-    resized_p<- image_scale(p, "600x600")
     graphics::plot.new()
-    grid::grid.raster(resized_p)
+    grid::grid.raster(p)
 
   }
 

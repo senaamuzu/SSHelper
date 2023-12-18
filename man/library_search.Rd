@@ -6,8 +6,16 @@
 \usage{
 library_search(search_terms, place_to_search, ...)
 }
+\arguments{
+\item{search_terms}{user input specifying the library category of choice
+books, articles, rare_books, video, journals, and special_collections}
+
+\item{place_to_search}{user input specifying the title of the requested source}
+
+\item{...}{Currently ignored}
+}
 \value{
-A list of category \code{SSHelper} with following fields
+A data frame of lists of requested catalog \code{library_search} with following fields
 \itemize{
 \item journals
 \item books

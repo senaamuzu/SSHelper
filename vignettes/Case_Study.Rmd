@@ -30,8 +30,7 @@ a JSON object with metadata about that catalog.
 This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
-#library(SSHelper)
-#library_search("1984","journals") 
+library_search("1984","journals") 
 ```
 
 
@@ -39,7 +38,5 @@ The most useful: thing you can do with these object is plot them,
 using the draw_image which displays the source cover
 image in your plot window
 
-```{r}
-#draw_image(list_title[1])
-```
+
 

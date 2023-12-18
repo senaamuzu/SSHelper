@@ -9,8 +9,14 @@ library(grid)
 #' @description
 #' A short description...
 #'
+#' @param search_terms  user input specifying the library category of choice
+#' books, articles, rare_books, video, journals, and special_collections
 #'
-#' @return A list of category `SSHelper` with following fields
+#' @param place_to_search user input specifying the title of the requested source
+#'
+#' @param ... Currently ignored
+#'
+#' @return A data frame of lists of requested catalog `library_search` with following fields
 #' * journals
 #' * books
 #' * articles
@@ -43,61 +49,47 @@ library_search <- function(search_terms, place_to_search, ...) {
   )
 
   x <- jsonlite::read_json(URL)
-  # str( x)
 
-
-  if ( place_to_search == "journals"){
-    cover_images <- purrr::map_chr(x$docs, "coverimage")
-    journals = purrr::map_chr(x$docs, "j_title")
-    #  names(cover_images) <- journals
-    # # journals
-    # cover_images
-    draw_image(cover_images)
+  if (place_to_search == "journals"){
+    cover_image <- purrr::map_chr(x$docs, "coverimage")
+    title = purrr::map_chr(x$docs, "j_title")
 
   } else if (place_to_search == "books"){
+    cover_image <- purrr::map_chr(x, "image")
+    title = purrr::map_chr(x, "jtitle")
 
-    books = purrr::map_chr(x, "jtitle")
-    books
-
-    # draw_book_covers()
-
-    # cover_image = map_chr(x$, "")
-
-  } else if (place_to_search == "articles"){
-      articles = purrr::map_chr(x, "full")
+ } else if (place_to_search == "articles"){
+   cover_image = NA
+   title = purrr::map_chr(x, "full")
 
   } else if (place_to_search == "rare_books"){
-    rare_books = purrr::map_chr(x, "full")
-    rare_books
+    cover_image = NA
+    title = purrr::map_chr(x, "full")
 
-  }else if (category == "articles"){
-    articles = purrr::map_chr(x, "title")
-    articles
+  } else if (place_to_search == "video"){
+    cover_image <- purrr::map_chr(x, "image")
+    title = purrr::map_chr(x, "full")
 
-  }else if (place_to_search == "video"){
-    video = purrr::map_chr(x, "full ")
-    video
+  } else if( place_to_search == "special_collections"){
+    cover_image = NA
+    title = purrr::map_chr(x, "full")
 
-  }else if( place_to_search == "special_collections"){
-    special_collections = purrr::map_chr(x, "full")
-    special_collections
-
-  } else{
-
-    stop("Category not found")
   }
 
+  results <- data.frame(title = title,
+                        image = cover_image)
 
-
+  return(results)
 
 }
 
 #' Visualize
 #'
-#' Given an [`SSHelper`] object, this [`base::draw_image`] method retrieve an image file associated with
+#' Given an [`library_search`] object, this [`draw_image`] function retrieve an image file associated with
 #' the category type from Smith College library and displays it in the graphics device.
 #'
-#' @param x An [`SSHelper`] SSHelper object
+#' @param search_results An [`library_search`] SSHelper object
+#' @param ... Currently ignored
 #'
 #' @importFrom tools file_ext
 #' @importFrom png readPNG
@@ -107,39 +99,44 @@ library_search <- function(search_terms, place_to_search, ...) {
 #' @importFrom purrr map_chr
 #'
 #' @export
-draw_image<- function(cover_images, ...){
+draw_image <- function(search_results, ...){
 
-  n <- length(cover_images)
-  n_row <- floor(sqrt(n))
-  n_col <- ceiling(n / n_row)
-
-  # Set up the plot layout
-  par(mfrow = c(n_row, n_col))
-
-  for (j in cover_images){
+  cover_image <- search_results$image
+  if ((is.null(cover_image))|| all(is.na(cover_image))){
+    stop("No Cover Image Avaliable")
+  }
 
 
-    img_type <- tools::file_ext(j)
-    #
-    # tmp <- tempfile(pattern = "file",
-    #                 tmpdir = tempdir()
-    #   )
-    #
-    # utils::download.file(cover_images, destfile = tmp)
+  for (j in cover_image){
+
+    if (j == ""){
+      next
+    }
 
     tmp <- httr::GET(url = j)
 
-    if (img_type == "png") {
-      p <- png::readPNG(tmp$content)
-    } else if (img_type == "jpg" || img_type == "jpeg") {
-      p <- jpeg::readJPEG(tmp$content)
-    } else {
-      stop("unknown image format", img_type)
-    }
+    p <- tryCatch(png::readPNG(tmp$content),
+                  error = function(x) {
+                    NULL
+                  }
+    )
+    if (is.null(p)) {
+      p <- tryCatch(jpeg::readJPEG(tmp$content),
+                    error = function(x) {
+                      NULL
+
+                    }
+      )
+
+ readline("Please press ENTER to view next image")
 
     graphics::plot.new()
     grid::grid.raster(p)
 
+    } else{
+    stop("Image format not found")
   }
 
+  }
+  return(invisible(NULL))
 }

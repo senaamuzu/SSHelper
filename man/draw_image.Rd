@@ -4,12 +4,14 @@
 \alias{draw_image}
 \title{Visualize}
 \usage{
-draw_image(cover_images, ...)
+draw_image(search_results, ...)
 }
 \arguments{
-\item{x}{An \code{\link{SSHelper}} SSHelper object}
+\item{search_results}{An \code{\link{library_search}} SSHelper object}
+
+\item{...}{Currently ignored}
 }
 \description{
-Given an \code{\link{SSHelper}} object, this \code{\link[base:draw_image]{base::draw_image}} method retrieve an image file associated with
+Given an \code{\link{library_search}} object, this \code{\link{draw_image}} function retrieve an image file associated with
 the category type from Smith College library and displays it in the graphics device.
 }

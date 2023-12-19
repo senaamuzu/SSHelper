@@ -2,7 +2,7 @@
 % Please edit documentation in R/SSHelper.R
 \name{draw_image}
 \alias{draw_image}
-\title{Visualize}
+\title{Visualize cover images}
 \usage{
 draw_image(search_results, ...)
 }

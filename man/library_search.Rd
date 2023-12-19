@@ -22,8 +22,10 @@ A data frame of lists of requested catalog \code{library_search} with following 
 \item articles
 \item video
 \item special_collections
+\item rare_books
 }
 }
 \description{
-A short description...
+SSHelper is a package that assists searches in the Smith college library catalog
+it allows users to browse lists of sources and cover images
 }

@@ -1,13 +1,8 @@
-library(httr)
-library(rvest)
-library(purrr)
-library(gridExtra)
-library(grid)
-
 #' @title Retrieve metadata from Smith College library
 #'
 #' @description
-#' A short description...
+#' SSHelper is a package that assists searches in the Smith college library catalog
+#' it allows users to browse lists of sources and cover images
 #'
 #' @param search_terms  user input specifying the library category of choice
 #' books, articles, rare_books, video, journals, and special_collections
@@ -22,6 +17,7 @@ library(grid)
 #' * articles
 #' * video
 #' * special_collections
+#' * rare_books
 #'
 #' @importFrom jsonlite read_json
 #' @export
@@ -83,7 +79,7 @@ library_search <- function(search_terms, place_to_search, ...) {
 
 }
 
-#' Visualize
+#' Visualize cover images
 #'
 #' Given an [`library_search`] object, this [`draw_image`] function retrieve an image file associated with
 #' the category type from Smith College library and displays it in the graphics device.
